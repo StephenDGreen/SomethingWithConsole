@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -23,10 +24,9 @@ namespace Something.UI
                 .CreateLogger();
             try
             {
-                Log.Information("Application started");
                 var host = CreateHostBuilder(args).Build();
                 var somethingService = ActivatorUtilities.CreateInstance<SomethingService>(host.Services);
-                somethingService.Run();
+                _ = somethingService.Run();
             }
             catch (Exception)
             {
@@ -52,7 +52,11 @@ namespace Something.UI
                         .AddScoped<ISomethingElseDeleteInteractor, SomethingElseDeleteInteractor>()
                         .AddScoped<ISomethingElsePersistence, SomethingElsePersistence>()
                         .AddTransient<ISomethingService, SomethingService>()
-                        .AddSingleton(Log.Logger))
+                        .AddSingleton(Log.Logger)
+                        .AddDbContext<AppDbContext>(
+                            options => options.UseInMemoryDatabase(nameof(Something.UI))
+                            ))
                         .UseSerilog();
+            
     }
 }

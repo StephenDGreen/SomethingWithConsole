@@ -1,7 +1,9 @@
-﻿namespace Something.UI
+﻿using System.Threading.Tasks;
+
+namespace Something.UI
 {
     public interface ISomethingService
     {
-        void Run();
+        Task Run();
     }
 }
