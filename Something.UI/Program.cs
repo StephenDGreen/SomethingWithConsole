@@ -54,7 +54,7 @@ namespace Something.UI
                         .AddTransient<ISomethingService, SomethingService>()
                         .AddSingleton(Log.Logger)
                         .AddDbContext<AppDbContext>(
-                            options => options.UseInMemoryDatabase(nameof(Something.UI))
+                            options => options.UseInMemoryDatabase(databaseName: "Something")
                             ))
                         .UseSerilog();
             
