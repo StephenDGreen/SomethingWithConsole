@@ -25,9 +25,10 @@ namespace Something.UI
             this.logger = logger;
         }
 
-        public async Task Run()
+        public async Task Run(bool createDummyData)
         {
-            await CreateData();
+            if (createDummyData)
+                await CreateData();
             List<Domain.Models.SomethingElse> somethingList = await readInteractor.GetSomethingElseIncludingSomethingsListAsync();
             foreach (var item in somethingList)
             {

@@ -4,6 +4,6 @@ namespace Something.UI
 {
     public interface ISomethingService
     {
-        Task Run();
+        Task Run(bool createDummyData);
     }
 }

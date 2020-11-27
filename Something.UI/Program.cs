@@ -7,13 +7,15 @@ using Something.Application;
 using Something.Domain;
 using Something.Persistence;
 using System;
+using System.CommandLine.DragonFruit;
 using System.Threading.Tasks;
 
 namespace Something.UI
 {
     class Program
     {
-        public static void Main(string[] args)
+        /// <param name="createDummyData">An option whose argument is parsed as an bool, usage --create-dummy-data</param>
+        public static void Main(bool createDummyData)
         {
             var config = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json", false)
@@ -24,9 +26,9 @@ namespace Something.UI
                 .CreateLogger();
             try
             {
-                var host = CreateHostBuilder(args).Build();
+                var host = CreateHostBuilder().Build();
                 var somethingService = ActivatorUtilities.CreateInstance<SomethingService>(host.Services);
-                _ = somethingService.Run();
+                _ = somethingService.Run(createDummyData);
             }
             catch (Exception)
             {
@@ -39,7 +41,7 @@ namespace Something.UI
             }
         }
 
-        static IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
+        static IHostBuilder CreateHostBuilder() => Host.CreateDefaultBuilder()
                         .ConfigureServices((_, services) =>
                         services.AddSingleton<ISomethingFactory, SomethingFactory>()
                         .AddScoped<ISomethingCreateInteractor, SomethingCreateInteractor>()
