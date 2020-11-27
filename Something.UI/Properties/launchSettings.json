@@ -2,7 +2,7 @@
   "profiles": {
     "Something.UI": {
       "commandName": "Project",
-      "commandLineArgs": "--create-dummy-data"
+      "commandLineArgs": "-h"
     }
   }
 }

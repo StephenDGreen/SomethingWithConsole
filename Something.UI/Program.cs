@@ -7,14 +7,12 @@ using Something.Application;
 using Something.Domain;
 using Something.Persistence;
 using System;
-using System.CommandLine.DragonFruit;
-using System.Threading.Tasks;
 
 namespace Something.UI
 {
     class Program
     {
-        /// <param name="createDummyData">An option whose argument is parsed as an bool, usage --create-dummy-data</param>
+        /// <param name="createDummyData">An option whose argument is parsed as an bool</param>
         public static void Main(bool createDummyData)
         {
             var config = new ConfigurationBuilder()
